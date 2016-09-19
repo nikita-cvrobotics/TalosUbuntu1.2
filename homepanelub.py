@@ -28,18 +28,3 @@ class homeFrame(Frame):
         self.rowCount = 0
         Label(self.frame, text=self.ospltfm + " platform detected.", font="Arial 16 bold").grid(row=self.rowCount, column=1, columnspan=2, ipadx=10, ipady=10)
         self.rowCount += 1
-        Label(self.frame, text="Score Report Backup:").grid(row=self.rowCount, column=1, ipadx=10, ipady=10)
-        Label(self.frame, text="NOT CONFIGURED").grid(row=self.rowCount, column=2, ipadx=10, ipady=10)
-        Button(self.frame, text="Set Score Report Backup").grid(row=self.rowCount, column=3, ipadx=50)
-        self.rowCount += 1
-        Button(self.frame, text="BACKUP SYSTEM").grid(row=self.rowCount, column=1, ipadx=50)
-        self.rowCount += 1
-        Label(self.frame, text="ERUNT Backup:").grid(row=self.rowCount, column=1, ipadx=10, ipady=10)
-        Label(self.frame, text="NOT CONFIGURED").grid(row=self.rowCount, column=2, ipadx=10, ipady=10)
-        self.rowCount += 1
-        Label(self.frame, text="User Backup:").grid(row=self.rowCount, column=1, ipadx=10, ipady=10)
-        Label(self.frame, text="NOT CONFIGURED").grid(row=self.rowCount, column=2, ipadx=10, ipady=10)
-        self.rowCount += 1
-        Label(self.frame, text="GPO Backup:").grid(row=self.rowCount, column=1, ipadx=10, ipady=10)
-        Label(self.frame, text="NOT CONFIGURED").grid(row=self.rowCount, column=2, ipadx=10, ipady=10)
-        self.rowCount += 1

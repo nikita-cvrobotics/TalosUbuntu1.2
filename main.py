@@ -14,14 +14,17 @@ root.title("Talos Security Implementation Utility (TSIU) v1.2")
 mainpane = ttk.Notebook(root)
 mainpane.configure(width=winwidth, height=winheight)
 
-import homepanel
-homeTab = homepanel.homeFrame(mainpane, ospltfm)
-mainpane.add(homeTab, text="Home", compound=TOP)
 if ospltfm == "Linux":
+    import homepanelub
+    homeTab = homepanel.homeFrame(mainpane, ospltfm)
+    mainpane.add(homeTab, text="Home", compound=TOP)
     import usrgrp
     usrgrpTab = usrgrp.usrgrpFrame(mainpane)
     mainpane.add(usrgrpTab, text="Users and Groups", compound=TOP)
 elif ospltfm == "Windows":
+    import homepanel
+    homeTab = homepanel.homeFrame(mainpane, ospltfm)
+    mainpane.add(homeTab, text="Home", compound=TOP)
     import usrgrpwin
     usrgrpTab = usrgrpwin.usrgrpFrame(mainpane)
     mainpane.add(usrgrpTab, text="Users and Groups", compound=TOP)

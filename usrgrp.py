@@ -207,6 +207,7 @@ class usrgrpFrame(Frame):
 	def reloadFrm(self):
 		global flagCount
 		global rowCount
+		flagCount = 0
 		for chile in self.frame.winfo_children():
 			chile.destroy()
 		fdispt = Label(self.frame, text="Issues:", font="Arial 16 bold")
@@ -214,6 +215,7 @@ class usrgrpFrame(Frame):
 		flagDisp = Label(self.frame, font="Arial 16 bold")
 		flagDisp.grid(row=rowCount, column=1, sticky=W, ipadx=10, ipady=10)
 		Button(self.frame, text="Fix Now", command = lambda: self.repairUsers()).grid(row=rowCount, column=2, ipadx=10, ipady=10)
+                Button(self.frame, text="Refresh", command = lambda: self.reloadFrm()).grid(row=rowCount, column=3, ipadx=10, ipady=10)
 		rowCount += 1
 
 		#Guest info
