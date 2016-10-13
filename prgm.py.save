@@ -1,0 +1,19 @@
+import frmbase
+from Tkinter import *
+import subprocess
+import os
+
+class prgmFrm(frmbase.frmbase):
+	def findPrograms(self):
+		#abspath = os.path.abspath(__file__)
+		#dname = os.path.dirname(abspath)
+		result = []
+		concernList = subprocess.check_output("diff <(dpkg --get-selections | cut -f1) ub14pkgdef", shell=True).splitlines()
+		for i in concernList:
+			if i.startswith("<"):
+				result.append(i[2:])
+		return result
+	def regenFrm(self):
+		hazards = self.findPrograms()
+		Label(self.frame, text=hazards[0]).pack()
+		

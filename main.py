@@ -16,11 +16,14 @@ mainpane.configure(width=winwidth, height=winheight)
 
 if ospltfm == "Linux":
     import homepanelub
-    homeTab = homepanel.homeFrame(mainpane, ospltfm)
+    homeTab = homepanelub.homeFrame(mainpane, ospltfm)
     mainpane.add(homeTab, text="Home", compound=TOP)
     import usrgrp
     usrgrpTab = usrgrp.usrgrpFrame(mainpane)
     mainpane.add(usrgrpTab, text="Users and Groups", compound=TOP)
+    import prgm
+    prgmTab = prgm.prgmFrm(mainpane)
+    mainpane.add(prgmTab, text="Programs")
 elif ospltfm == "Windows":
     import homepanel
     homeTab = homepanel.homeFrame(mainpane, ospltfm)
@@ -31,9 +34,6 @@ elif ospltfm == "Windows":
     pass
 else:
     print("ERROR - could not detect platform OS.")
-
-prgmTab = Frame(mainpane)
-mainpane.add(prgmTab, text="Programs")
 
 mainpane.pack(fill=BOTH)
 root.mainloop()
