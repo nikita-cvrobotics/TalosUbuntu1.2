@@ -128,6 +128,21 @@ class usrgrpFrame(Frame):
 		Button(master, text="Enable").grid(row=rowCount, column=8)
 		Button(master, text="Disable").grid(row=rowCount, column=9)
 		rowCount += 1
+	def getGroups(self):
+                groupArr = subprocess.check_output("net localgroup", shell=True).splitlines()
+                resultMap = {}
+                for i in groupArr:
+                    if i.startswith("*"):
+                        currGrpStr = i[1:]
+                        userList = []
+                        grpOut = subprocess.check_output('net localgroup "' + currGrpStr + '"', shell=True).splitlines()
+                        for i in range(6, 100):
+                            if grpOut[i] == "The command completed successfully." or grpOut[i] == "":
+                                break
+                            userList.append(grpOut[i])
+                        if len(userList) > 0:
+                            resultMap[currGrpStr] = userList
+                return resultMap
 	def getUsers(self):
 		result = []
                 wmicList = subprocess.check_output("wmic useraccount").splitlines()
