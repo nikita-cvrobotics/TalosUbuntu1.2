@@ -3,6 +3,7 @@ import os
 import subprocess
 import getpass
 import sys
+from threading import Thread
 
 '''
 The following settings are recommended:
@@ -96,6 +97,22 @@ class usrgrpFrame(Frame):
                 os.system("wmic useraccount where name='Administrator' rename TalosWasHere")
                 os.system("wmic useraccount where name='Guest' rename TalosWasHereToo")
 		self.resetFrm()
+	def enableAccount(self, name):
+                print "Enabling", name
+                os.system("net user " + name + " /active:yes")
+                self.resetFrm()
+        def disableAccount(self, name):
+                print "Disabling", name
+                os.system("net user " + name + " /active:no")
+                self.resetFrm()
+        def delGroup(self, evt, nm):
+                widget = evt.widget
+                sel = widget.curselection()
+                for i in sel:
+                        currgp = widget.get(i)
+                        print "Removing", nm, "from", currgp
+                        os.system('net localgroup "' + currgp + '" ' + nm + " /delete")
+                self.resetFrm()
 	def usrfrm(self, master, name, isPassword, pschg, psexp, psreq, groups, isDisabled):
 		global rowCount
 		global flagCount
@@ -114,19 +131,20 @@ class usrgrpFrame(Frame):
 		Label(master, text=str(psreq), fg=flagPassChg(name, psreq == "TRUE")).grid(row=rowCount, column=5, ipadx=10, ipady=5, sticky=W)
 		#find groups
 		#grpls = subprocess.check_output("groups %s" % name, shell=True).split()
-                grpls = []
-		if len(grpls) > 3:
+                #grpls = []
+		if len(self.grpList) > 3:
 			grplbox = Listbox(master, fg="red", selectmode=EXTENDED)
 			grplbox.grid(row=rowCount, column=6, sticky=W)
 			grplbox.bind("<Delete>", lambda evt, nm=name: self.delGroup(evt, nm))
-			for i in range(3, len(grpls)):
-				flagCount += 1
-				grplbox.insert(END, grpls[i])
+                        if self.grpList.has_key(name):
+                                for i in self.grpList[name]:
+                                        flagCount += 1
+        				grplbox.insert(END, i)
 		else:
 			Label(master, text="None", fg="green").grid(row=rowCount, column=6, ipadx=10, ipady=5, sticky=W)			
 		Label(master, text=isdis, fg=flagDisabled(name, isDisabled)).grid(row=rowCount, column=7, ipadx=10, ipady=5, sticky=W)
-		Button(master, text="Enable").grid(row=rowCount, column=8)
-		Button(master, text="Disable").grid(row=rowCount, column=9)
+		Button(master, text="Enable", command = lambda: self.enableAccount(name)).grid(row=rowCount, column=8)
+		Button(master, text="Disable", command = lambda: self.disableAccount(name)).grid(row=rowCount, column=9)
 		rowCount += 1
 	def getGroups(self):
                 groupArr = subprocess.check_output("net localgroup", shell=True).splitlines()
@@ -136,12 +154,13 @@ class usrgrpFrame(Frame):
                         currGrpStr = i[1:]
                         userList = []
                         grpOut = subprocess.check_output('net localgroup "' + currGrpStr + '"', shell=True).splitlines()
-                        for i in range(6, 100):
-                            if grpOut[i] == "The command completed successfully." or grpOut[i] == "":
-                                break
-                            userList.append(grpOut[i])
-                        if len(userList) > 0:
-                            resultMap[currGrpStr] = userList
+                        for j in range(6, 100):
+                                if grpOut[j] == "The command completed successfully." or grpOut[j] == "":
+                                        break
+                                if resultMap.has_key(grpOut[j]):
+                                        resultMap[grpOut[j]].append(currGrpStr)
+                                else:
+                                        resultMap[grpOut[j]] = [currGrpStr]
                 return resultMap
 	def getUsers(self):
 		result = []
@@ -187,7 +206,8 @@ class usrgrpFrame(Frame):
 		self.frame.bind("<Configure>", self.onFrameConfig)
 		self.pack(expand=True)
 		
-		self.reloadFrm()
+		t = Thread(target=self.reloadFrm)
+                t.start()
 
 	def reloadFrm(self):
 		global flagCount
@@ -213,6 +233,7 @@ class usrgrpFrame(Frame):
 		Label(self.frame, text="Groups").grid(row=rowCount, column=6, sticky=W, ipadx=10, ipady=5)
 		Label(self.frame, text="Disabled?").grid(row=rowCount, column=7, sticky=W, ipadx=10, ipady=5)
 		rowCount += 1
+		self.grpList = self.getGroups()
 		for curusr in self.getUsers():
 			self.nameList.append(self.usrfrm(self.frame, curusr[0], curusr[1], curusr[2], curusr[3], curusr[4], curusr[5], curusr[6]))
 		issuefg = "red"
