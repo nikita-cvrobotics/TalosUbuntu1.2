@@ -177,7 +177,11 @@ class usrgrpFrame(Frame):
 				for shdat in shadowData:
 					dldat2 = shdat.split(":")
 					if dldat2[0] == dldat[0]:
-						result.append([dldat2[0], dldat2[0] in passComplete, int(dldat2[3]), int(dldat2[4]), int(dldat2[5]), "NOPE", dldat2[1].startswith("!") or dldat2[1].startswith("*")])
+						try:
+							result.append([dldat2[0], dldat2[0] in passComplete, int(dldat2[3]), int(dldat2[4]), int(dldat2[5]), "NOPE", dldat2[1].startswith("!") or dldat2[1].startswith("*")])
+						except:
+							result.append([dldat2[0], dldat2[0] in passComplete, -1, 999999, -1, "NOPE", dldat2[1].startswith("!") or dldat2[1].startswith("*")])
+							print "read error for", dldat2[0], "- check the shadow file."
 		return result
 	def onFrameConfig(self, event):
 		self.canvas.configure(scrollregion=self.canvas.bbox("all"))

@@ -30,15 +30,15 @@ if ospltfm == "Linux":
 	import pkgsec
 	psecTab = pkgsec.secFrm(mainpane)
 	mainpane.add(psecTab, text="Tool Security")
+	import htools
+	hsecTab = htools.secFrm(mainpane)
+	mainpane.add(hsecTab, text="Hardening Tools")
 	import fwall
 	fsecTab = fwall.secFrm(mainpane)
 	mainpane.add(fsecTab, text="Firewall")
 	import medub
 	msecTab = medub.secFrm(mainpane)
 	mainpane.add(msecTab, text="Media Files")
-	import htools
-	hsecTab = htools.secFrm(mainpane)
-	mainpane.add(hsecTab, text="Hardening Tools")
 	import damon
 	dsecTab = damon.secFrm(mainpane)
 	mainpane.add(dsecTab, text="Daemons")
@@ -82,9 +82,6 @@ elif ospltfm == "Windows":
 	import avgwin
 	avgTab = avgwin.avgFrm(mainpane)
 	mainpane.add(avgTab, text="Antivirus", compound=TOP)
-	import stawin
-	staTab = stawin.secFrm(mainpane)
-	mainpane.add(staTab, text="Tasks", compound=TOP)
 	import bitwin
 	bitTab = bitwin.bitFrm(mainpane)
 	mainpane.add(bitTab, text="Bitlocker", compound=TOP)
