@@ -14,15 +14,9 @@ class prgmFrm(frmbase.frmbase):
                 return san
         def fixAll(self):
                 fwin.runCCleaner()
-<<<<<<< HEAD
                 self.killPrograms()
                 #WAIT FOR UNINSTALLS TO COMPLETE, THEN DO NEXT COMMAND!!
                 self.killProgramFiles()
-=======
-                fwin.remPrograms(fwin.getBadPrograms())
-                #WAIT FOR UNINSTALLS TO COMPLETE, THEN DO NEXT COMMAND!!
-                fwin.remPrgFiles(fwin.getBadPrgFiles())
->>>>>>> origin/Windows-usrgrp
                 self.reloadFrm()
         def ePrg(self, lbw):
                 for i in lbw.curselection():
@@ -44,7 +38,6 @@ class prgmFrm(frmbase.frmbase):
                         if lbw.get(i) in self.epflist:
                                 self.epflist.remove(lbw.get(i))
                 self.reloadFrm()
-<<<<<<< HEAD
         def killPrograms(self):
                 toDestroy = []
                 for i in fwin.getBadPrograms():
@@ -57,8 +50,6 @@ class prgmFrm(frmbase.frmbase):
                         if i not in self.epflist:
                                 toDestroy.append(i)
                 fwin.remPrograms(toDestroy)
-=======
->>>>>>> origin/Windows-usrgrp
 	def regenFrm(self):
                 self.flagCount = 0
                 Label(self.frame, text="CCleaner scan completed?").grid(row=1, column=0)

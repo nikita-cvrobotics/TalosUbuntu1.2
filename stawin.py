@@ -9,6 +9,8 @@ class secFrm(frmbase.frmbase):
                 if btest:
                         return fan
                 return san
+        def fixAll(self):
+                pass
 	def regenFrm(self):
                 self.flagCount = 0
 		Label(self.frame, text="Autoruns and Scheduled tasks have not been patched yet.").grid(row=1, column=0, sticky=W)
@@ -16,5 +18,6 @@ class secFrm(frmbase.frmbase):
                 fdispt = Label(self.frame, text="Issues:", font="Arial 16 bold").grid(row=0, column=0, sticky=W)
                 fans = Label(self.frame, text=str(self.flagCount), font="Arial 16 bold", fg=self.cheapSelect(self.flagCount > 0, "red", "green"))
                 fans.grid(row=0, column=1, sticky=W, ipadx=10)
-                Button(self.frame, text="Fix All").grid(row=0, column=2)
+                Button(self.frame, text="Fix All", command=self.fixAll).grid(row=0, column=2)
+                Button(self.frame, text="Refresh", command=self.reloadFrm).grid(row=0, column=2)
 		
