@@ -70,12 +70,15 @@ def getSecunia():
     return isSecunia
 def runSecunia():
     print "Executing Secunia Installer!"
+<<<<<<< HEAD
 def getUpdateSettings():
     isautoupt = False
     #check Automatic Updates
     return isautoupt
 def fixUpdates():
     print "Fixing auto updates!"
+=======
+>>>>>>> origin/Windows-usrgrp
 #=== PROGRAMS ===
 def getCCleaner():
     isCCleaner = False
@@ -92,9 +95,15 @@ def getBadPrgFiles():
     #get bad prg files
     return result
 def remPrograms(remList):
+<<<<<<< HEAD
     print "Removing programs", remList
 def remPrgFiles(remList):
     print "Removing program files", remList
+=======
+    print "Removing programs"
+def remPrgFiles(remList):
+    print "Removing program files"
+>>>>>>> origin/Windows-usrgrp
 #=== FEATURES ===
 def getFeatures():
     return {"remove":["ft1", "ft2", "ft3"],
@@ -133,6 +142,7 @@ def setSvc(svc, state):
         print "Manualing", svc
     elif state == "auto":
         print "Autoing", svc
+<<<<<<< HEAD
 def setSvcs(svcList, state):
     for i in svcList:
         setSvc(i, state)
@@ -149,6 +159,15 @@ def scanDisk():
     result = ["dfile1", "dfile2", "dfile3"]
     #fill up results
     return result
+=======
+def applyReg():
+    print "Applying reg"
+#=== MEDIA FILES ===
+def scanUsers():
+    print "Scanning C:\\Users..."
+def scanDisk():
+    print "Scanning C:\\ - Brace yourself."
+>>>>>>> origin/Windows-usrgrp
 def removeMediaFiles(flist):
     print "Removing", flist
 #=== SYSTEM FILES ===
@@ -159,9 +178,14 @@ def isHostsSafe():
     #Check hosts
     return defhosts
 def scanSysFiles():
+<<<<<<< HEAD
     return ["hack1", "hack2", "hack3"]
 def scanACLs():
     return [[ "issue1", [("Bob1", "Admin"), ("Bob2", "User")] ], [ "issue2", [("Bob1", "Admin"), ("Bob2", "User")] ]]
+=======
+    return {"hax":["hack1", "hack2", "hack3"],
+            "missing":["wat3", "wat2", "wat1"]}
+>>>>>>> origin/Windows-usrgrp
 def scanUserFolders():
     return ["Phileeep", "Johannes"]
 def remHaxFiles(pathlist):
@@ -211,9 +235,12 @@ def getBitlocker():
     return isbit
 def activateBitlocker():
     print "Enabling Bitlocker!"
+<<<<<<< HEAD
 def getApplocker():
     isapp = False
     #Check Applocker
     return isapp
 def activateApplocker():
     print "Activating AppLocker!"
+=======
+>>>>>>> origin/Windows-usrgrp

@@ -12,7 +12,10 @@ class wsuFrm(frmbase.frmbase):
                         return fan
                 return san
         def fixAll(self):
+<<<<<<< HEAD
                 fwin.fixUpdates()
+=======
+>>>>>>> origin/Windows-usrgrp
                 fwin.runWSUS()
                 fwin.runSecunia()
                 self.reloadFrm()
@@ -62,6 +65,7 @@ class wsuFrm(frmbase.frmbase):
                         self.flagCount += 1
                         Label(self.frame, text="No", fg="red").grid(row=6, column=1)
                 Button(self.frame, text="Install Secunia PSI", command=lambda: (fwin.runSecunia(), self.reloadFrm())).grid(row=6, column=2)
+<<<<<<< HEAD
 
                 autoupt = fwin.getUpdateSettings()
                 Label(self.frame, text="Updates Installed Automatically? ").grid(row=7, column=0, sticky=W)
@@ -71,6 +75,8 @@ class wsuFrm(frmbase.frmbase):
                         self.flagCount += 1
                         Label(self.frame, text="No", fg="red").grid(row=7, column=1)
                         Button(self.frame, text="Fix Updates", command=lambda: (fwin.fixUpdates(), self.reloadFrm())).grid(row=7, column=2)
+=======
+>>>>>>> origin/Windows-usrgrp
                 
 		#Check flags
                 fdispt = Label(self.frame, text="Issues:", font="Arial 16 bold").grid(row=0, column=0, sticky=W)

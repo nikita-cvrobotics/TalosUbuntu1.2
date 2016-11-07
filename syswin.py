@@ -2,7 +2,10 @@ import frmbase
 from Tkinter import *
 import subprocess
 import os
+<<<<<<< HEAD
 import fwin
+=======
+>>>>>>> origin/Windows-usrgrp
 
 class sysFrm(frmbase.frmbase):
         flagCount = 0
@@ -10,6 +13,7 @@ class sysFrm(frmbase.frmbase):
                 if btest:
                         return fan
                 return san
+<<<<<<< HEAD
         def fillList(self, lb, li):
                 for i in li:
                         self.flagCount += 1
@@ -21,6 +25,9 @@ class sysFrm(frmbase.frmbase):
                                 if str(j) == i:
                                         fixPathList.append(j[0])
         def regenFrm(self):
+=======
+	def regenFrm(self):
+>>>>>>> origin/Windows-usrgrp
                 self.flagCount = 0
                 Button(self.frame, text="Fix").grid(row=0, column=2, ipadx=5)
                 fdispt = Label(self.frame, text="Issues:", font="Arial 16 bold").grid(row=0, column=0, sticky=W)
@@ -45,6 +52,7 @@ class sysFrm(frmbase.frmbase):
                         Button(self.frame, text="Fix hosts file").grid(row=2, column=2)
 		Label(self.frame, text="Files of Concern:").grid(row=3, column=0, sticky=W)
                 #check for extra files
+<<<<<<< HEAD
                 fhax = Listbox(self.frame, selectmode=EXTENDED, width=50, height=18, fg="red")
                 self.fillList(fhax, fwin.scanSysFiles())
                 fhax.grid(row=4, column=0, rowspan=3)
@@ -61,6 +69,18 @@ class sysFrm(frmbase.frmbase):
                 ulb = Listbox(self.frame, selectmode=EXTENDED, width=50, height=8, fg="red")
                 self.fillList(ulb, fwin.scanUserFolders())
                 ulb.grid(row=6, column=1)
+=======
+                Listbox(self.frame, selectmode=EXTENDED, width=50).grid(row=4, column=0)
+                Label(self.frame, text="Files Missing:").grid(row=5, column=0, sticky=W)
+                #check for lack of files
+                Listbox(self.frame, selectmode=EXTENDED, width=50).grid(row=6, column=0)
+                Label(self.frame, text="ACL Issues:").grid(row=3, column=1, sticky=W)
+                #sysinternals accesschk partay
+                Listbox(self.frame, selectmode=EXTENDED, width=50).grid(row=4, column=1)
+                Label(self.frame, text="User Folders:").grid(row=5, column=1, sticky=W)
+                #Compare user folders to users
+                Listbox(self.frame, selectmode=EXTENDED, width=50).grid(row=6, column=1)
+>>>>>>> origin/Windows-usrgrp
 
                 fans = Label(self.frame, text=str(self.flagCount), font="Arial 16 bold", fg=self.cheapSelect(self.flagCount > 0, "red", "green"))
                 fans.grid(row=0, column=1, sticky=W)
