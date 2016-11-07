@@ -1,0 +1,4 @@
+avg: no
+malwarebytes: no
+mse: no
+windows defender: no

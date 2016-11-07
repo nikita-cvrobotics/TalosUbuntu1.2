@@ -94,8 +94,9 @@ class usrgrpFrame(Frame):
 		self.reloadFrm()
 	def repairUsers(self):
 		#Apply fixes
-                os.system("wmic useraccount where name='Administrator' rename TalosWasHere")
-                os.system("wmic useraccount where name='Guest' rename TalosWasHereToo")
+                #os.system("wmic useraccount where name='Administrator' rename TalosWasHere")
+                #os.system("wmic useraccount where name='Guest' rename TalosWasHereToo")
+                print "Fixes being applied..."
 		self.resetFrm()
 	def enableAccount(self, name):
                 print "Enabling", name
@@ -129,17 +130,20 @@ class usrgrpFrame(Frame):
 		Label(master, text=str(pschg), fg=flagPassChg(name, pschg == "TRUE")).grid(row=rowCount, column=3, ipadx=10, ipady=5, sticky=W)
 		Label(master, text=str(psexp), fg=flagPassChg(name, psexp == "TRUE")).grid(row=rowCount, column=4, ipadx=10, ipady=5, sticky=W)
 		Label(master, text=str(psreq), fg=flagPassChg(name, psreq == "TRUE")).grid(row=rowCount, column=5, ipadx=10, ipady=5, sticky=W)
-		#find groups
-		#grpls = subprocess.check_output("groups %s" % name, shell=True).split()
-                #grpls = []
-		if len(self.grpList) > 3:
+		#create group list
+		grpChk = []
+		for i in self.grpList[name]:
+                        if not ( (i == "Users") or ((name == "Administrator" or name == "TalosWasHere") and i == "Administrators") or
+                                                ((name == "Guest" or name == "TalosWasHereToo") and i == "Guests") ):
+                                grpChk.append(i)            
+		if len(grpChk) > 0:
 			grplbox = Listbox(master, fg="red", selectmode=EXTENDED)
 			grplbox.grid(row=rowCount, column=6, sticky=W)
 			grplbox.bind("<Delete>", lambda evt, nm=name: self.delGroup(evt, nm))
                         if self.grpList.has_key(name):
-                                for i in self.grpList[name]:
+                                for i in grpChk:
                                         flagCount += 1
-        				grplbox.insert(END, i)
+                                        grplbox.insert(END, i)
 		else:
 			Label(master, text="None", fg="green").grid(row=rowCount, column=6, ipadx=10, ipady=5, sticky=W)			
 		Label(master, text=isdis, fg=flagDisabled(name, isDisabled)).grid(row=rowCount, column=7, ipadx=10, ipady=5, sticky=W)
@@ -182,6 +186,8 @@ class usrgrpFrame(Frame):
                         editLine = wmicList[len(wmicList) - 2]
                         endRead = len(editLine)
                         wmicFL.append(editLine[startRead:endRead].rstrip())
+                        #check password of current user (named "wmicFL[9]")
+                        
                         result.append([wmicFL[9], False, wmicFL[10], wmicFL[11], wmicFL[12], [], wmicFL[3] == "TRUE"])
 		return result
 	def onFrameConfig(self, event):
